@@ -202,8 +202,9 @@
 				</configuration>
     </configuration>
     </plugin>
+    
 		</plugins>
-		<finalName>spring-boot-docker</finalName>
+		<finalName>app</finalName>
 	</build>
 
 </project>
