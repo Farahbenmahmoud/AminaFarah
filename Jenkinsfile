@@ -6,6 +6,11 @@ pipeline {
        
     }
     stages {
+        stage("***********hello openshifttt********") {
+            steps {
+                openshiftBuild(buildConfig: 's-b-af', showBuildLogs: 'true')
+            }
+        }
         stage("build project") {
             steps {
                // git 'https://github.com/denizturkmen/SpringBootMysqlCrud.git'
@@ -20,13 +25,6 @@ pipeline {
                 sh "mvn clean install"
             }
         }
-          stage("***********hello openshifttt********") {
-            steps {
-                // This uploads your application's source code and performs a binary build in OpenShift
-                // This is a step defined in the shared library (see the top for the URL)
-                // (Or you could invoke this step using 'oc' commands!)
-                openshiftbuild(buildConfigName: s-b-af, buildFromPath: ".")
-            }
-        }
+  
     }
 }
