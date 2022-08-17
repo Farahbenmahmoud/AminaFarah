@@ -20,5 +20,13 @@ pipeline {
                 sh "mvn clean install"
             }
         }
+          stage("Docker Build") {
+            steps {
+                // This uploads your application's source code and performs a binary build in OpenShift
+                // This is a step defined in the shared library (see the top for the URL)
+                // (Or you could invoke this step using 'oc' commands!)
+                binaryBuild(buildConfigName: s-b-af, buildFromPath: ".")
+            }
+        }
     }
 }
