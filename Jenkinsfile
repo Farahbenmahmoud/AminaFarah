@@ -6,11 +6,23 @@ pipeline {
        
     }
     stages {
-        stage("***********hello openshifttt********") {
-            steps {
-                openshiftBuild(buildConfig: 's-b-af', showBuildLogs: 'true')
+         stage('Openshittttt') {
+        steps {
+            script {
+                openshift.withCluster() {
+                    openshift.withProject() {
+                        echo "Using project: ${aminafarah}"
+                        def builds = openshift.selector("s-b-af", templateName).related('builds')
+                  timeout(5) { 
+                    builds.untilEach(1) {
+                      return (it.object().status.phase == "Complete")
+                    }
+                  }
+                    }
+                }
             }
         }
+    }
         stage("build project") {
             steps {
                // git 'https://github.com/denizturkmen/SpringBootMysqlCrud.git'
