@@ -6,23 +6,6 @@ pipeline {
        
     }
     stages {
-         stage('Openshittttt') {
-        steps {
-            script {
-                openshift.withCluster() {
-                    openshift.withProject() {
-                        echo "Using project: ${aminafarah}"
-                        def builds = openshift.selector("s-b-af", templateName).related('builds')
-                  timeout(5) { 
-                    builds.untilEach(1) {
-                      return (it.object().status.phase == "Complete")
-                    }
-                  }
-                    }
-                }
-            }
-        }
-    }
         stage("build project") {
             steps {
                // git 'https://github.com/denizturkmen/SpringBootMysqlCrud.git'
@@ -37,6 +20,9 @@ pipeline {
                 sh "mvn clean install"
             }
         }
-  
+         stage('Deploy') {
+    openshiftDeploy depCfg: 's-b-af'
+    openshiftVerifyDeployment depCfg: 's-b-af', replicaCount: 1, verifyReplicaCount: true
+  } 
     }
 }
