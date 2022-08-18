@@ -21,8 +21,10 @@ pipeline {
             }
         }
          stage('Deploy') {
-    openshiftDeploy depCfg: 's-b-af'
-    openshiftVerifyDeployment depCfg: 's-b-af', replicaCount: 1, verifyReplicaCount: true
-  } 
+             steps {
+               openshiftDeploy depCfg: 's-b-af'
+              openshiftVerifyDeployment depCfg: 's-b-af', replicaCount: 1, verifyReplicaCount: true
+             }
+             } 
     }
 }
