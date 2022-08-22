@@ -12,13 +12,14 @@ pipeline {
      steps{
         sh "oc project aminafarah"
           container('mysql') {
-              sh 'scripts/test.sh' // run SQL query against mysql-server container over TCP}
+              sh 'scripts/test.sh' // run SQL query against mysql-server container over TCP
+          }
        // sh "oc start-build hello-world --from-file=app.jar -n aminafarah --follow --wait"
        // sh "oc new-app hello-world || true"
        // sh "oc expose svc/hello-world || true"
     }
  }
-    }
+    
       /*  stage("build project") {
             steps {
                // git 'https://github.com/denizturkmen/SpringBootMysqlCrud.git'
@@ -36,8 +37,3 @@ pipeline {
         */
 }
  }
-      
-
-}
-    }
-    
