@@ -6,13 +6,16 @@ pipeline {
        
     }
     stages{
+        
             
  stage('Deploy') {
      steps{
-        sh "oc new-build --name hello-world --binary -n aminafarah --image-stream=aminafarah/redhat-openjdk-18/openjdk18-openshift  || true"
-        sh "oc start-build hello-world --from-file=app.jar -n aminafarah --follow --wait"
-        sh "oc new-app hello-world || true"
-        sh "oc expose svc/hello-world || true"
+        sh "oc project aminafarah"
+          container('mysql') {
+              sh 'scripts/test.sh' // run SQL query against mysql-server container over TCP}
+       // sh "oc start-build hello-world --from-file=app.jar -n aminafarah --follow --wait"
+       // sh "oc new-app hello-world || true"
+       // sh "oc expose svc/hello-world || true"
     }
  }
     }
@@ -31,7 +34,7 @@ pipeline {
             }
         }
         */
-
+}
  }
       
 
