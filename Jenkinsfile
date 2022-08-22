@@ -6,6 +6,27 @@ pipeline {
        
     }
     stages {
+        stage('Create Image Builder') {
+
+            when {
+              expression {
+                openshift.withCluster() {
+                  openshift.withProject(env.aminafarah) {
+                    return !openshift.selector("bc", "s-b-af").exists();
+                  }
+                }
+              }
+            }
+            steps {
+              script {
+                openshift.withCluster() {
+                  openshift.withProject(env.aminafarah) {
+                    openshift.newBuild("--name=s-b-af", "--image-stream=redhat-openjdk-18/openjdk18-openshift ", "--binary=true")
+                  }
+                }
+              }
+            }
+          }
         stage("build project") {
             steps {
                // git 'https://github.com/denizturkmen/SpringBootMysqlCrud.git'
@@ -20,11 +41,5 @@ pipeline {
                 sh "mvn clean install"
             }
         }
-         stage('Deploy') {
-             steps {
-               openshiftDeploy depCfg: 's-b-af'
-              openshiftVerifyDeployment depCfg: 's-b-af', replicaCount: 1, verifyReplicaCount: true
-             }
-             } 
-    }
+      
 }
