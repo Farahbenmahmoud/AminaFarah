@@ -5,6 +5,7 @@ pipeline {
          maven '3.5.0'
        
     }
+    stages{
     
         stage("build project") {
             steps {
@@ -20,7 +21,7 @@ pipeline {
                 sh "mvn clean install"
             }
         }
-    }
+    
  stage('Deploy') {
         sh "oc new-build --name hello-world --binary -n aminafarah --image-stream=aminafarah/redhat-openjdk-18/openjdk18-openshift  || true"
         sh "oc start-build hello-world --from-file=app.jar -n aminafarah --follow --wait"
@@ -30,3 +31,5 @@ pipeline {
       
 
 }
+    }
+    
