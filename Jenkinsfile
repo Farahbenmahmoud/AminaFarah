@@ -5,28 +5,7 @@ pipeline {
          maven '3.5.0'
        
     }
-    stages {
-        stage('Create Image Builder') {
-
-            when {
-              expression {
-                openshift.withCluster() {
-                  openshift.withProject(env.aminafarah) {
-                    return !openshift.selector("bc", "s-b-af").exists();
-                  }
-                }
-              }
-            }
-            steps {
-              script {
-                openshift.withCluster() {
-                  openshift.withProject(env.aminafarah) {
-                    openshift.newBuild("--name=s-b-af", "--image-stream=redhat-openjdk-18/openjdk18-openshift ", "--binary=true")
-                  }
-                }
-              }
-            }
-          }
+    
         stage("build project") {
             steps {
                // git 'https://github.com/denizturkmen/SpringBootMysqlCrud.git'
@@ -41,6 +20,12 @@ pipeline {
                 sh "mvn clean install"
             }
         }
+    }
+ stage('Deploy') {
+        sh "oc new-build --name hello-world --binary -n aminafarah --image-stream=aminafarah/redhat-openjdk-18/openjdk18-openshift  || true"
+        sh "oc start-build hello-world --from-file=app.jar -n aminafarah --follow --wait"
+        sh "oc new-app hello-world || true"
+        sh "oc expose svc/hello-world || true"
     }
       
 
