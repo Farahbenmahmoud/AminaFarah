@@ -7,7 +7,16 @@ pipeline {
     }
     stages{
 
-      /*  stage("build project") {
+        stage("build project") {
+               when {
+              expression {
+                openshift.withCluster() {
+                  openshift.withProject("aminafarah") {
+                    return !openshift.selector('dc', 'mysql').exists()
+                  }
+                }
+              }
+            }
             steps {
                // git 'https://github.com/denizturkmen/SpringBootMysqlCrud.git'
                 echo "Java VERSION"
@@ -20,8 +29,8 @@ pipeline {
                 //sh "mvn test"
                 sh "mvn clean install"
             }
-        }*/
-                stage("deploy"){
+        }
+        /* stage("deploy"){
             steps{
               script {
                 openshift.withCluster() { 
@@ -41,6 +50,6 @@ pipeline {
                    }
         }
         }
-        }
+        }*/
 }
  }
