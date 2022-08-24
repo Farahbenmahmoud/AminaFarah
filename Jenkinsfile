@@ -10,13 +10,11 @@ pipeline {
 
         stage("build project") {
                when {
-                   echo 'open...'
-              expression {
-                  echo 'openshift project...'
-                openshift.withCluster() {
-                    echo 'openshift project Name...'
-                  openshift.withProject("aminafarah") {
-                    return !openshift.selector('dc', 'mysql').exists()
+                   expression {
+                        openshift.withCluster() {
+                        echo 'openshift project Name...'
+                        openshift.withProject("aminafarah") {
+                         return !openshift.selector('dc', 'mysql').exists()
                   }
                 }
               }
