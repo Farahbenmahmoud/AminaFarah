@@ -1,4 +1,3 @@
-@Library('Utils')
 final APP_VERSION_FILE = 'app/VERSION'
 pipeline {
     agent any
