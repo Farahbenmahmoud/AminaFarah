@@ -1,4 +1,3 @@
-final APP_VERSION_FILE = 'app/VERSION'
 pipeline {
     agent any
     tools {
@@ -12,7 +11,6 @@ pipeline {
                when {
                    expression {
                         openshift.withCluster() {
-                        echo 'openshift project Name...'
                         openshift.withProject("aminafarah") {
                          return !openshift.selector('dc', 'mysql').exists()
                   }
