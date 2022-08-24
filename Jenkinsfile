@@ -8,6 +8,7 @@ pipeline {
     stages{
         stage("deploy"){
             steps{
+              script {
                 openshift.withCluster() { 
                 openshift.withProject("aminafarah") { 
                 def deployment = openshift.selector("dc", "mysql") 
@@ -23,6 +24,7 @@ pipeline {
                    } 
                    } 
                    }
+        }
         }
         }
       /*  stage("build project") {
