@@ -6,20 +6,23 @@ pipeline {
        
     }
     stages{
-        
-            
- stage('Deploy') {
-     steps{
-        sh "oc project aminafarah"
-          container('mysql') {
-              sh 'scripts/test.sh' // run SQL query against mysql-server container over TCP
-          }
-       // sh "oc start-build hello-world --from-file=app.jar -n aminafarah --follow --wait"
-       // sh "oc new-app hello-world || true"
-       // sh "oc expose svc/hello-world || true"
-    }
- }
+        stage("deploy"){
+   openshift.withCluster() { 
+  openshift.withProject("aminafarah") { 
+    def deployment = openshift.selector("dc", "mysql") 
     
+    if(!deployment.exists()){ 
+      openshift.newApp('mysql', "--as-deployment-config").narrow('svc').expose() 
+    } 
+    
+    timeout(5) { 
+      openshift.selector("dc", "mysql").related('pods').untilEach(1) { 
+        return (it.object().status.phase == "Running") 
+      } 
+    } 
+  } 
+}
+        }
       /*  stage("build project") {
             steps {
                // git 'https://github.com/denizturkmen/SpringBootMysqlCrud.git'
