@@ -6,18 +6,19 @@ pipeline {
          ocDir  'oc3.11.0'
          
     }
-  /*    parameters {
+      parameters {
 
     credentials credentialType: 'com.openshift.jenkins.plugins.OpenShiftTokenCredentials', name: 'openshift-login-api-token', defaultValue: '', description: '', required: true
 
-  }*/
+  }
     stages{ 
     
         stage("build project") {
                        
                   steps{
+                      script {
                         withEnv(["PATH=${ocDir}:$PATH"]) {
-                            openshift.withCluster("https://okd.cloud.3s.local:8443", credentials("WI-8En0gJyNYfzy8cyyr0eXLg1RA3cbNpxzjD8Ct5Mg")) {
+                            openshift.withCluster("https://okd.cloud.3s.local:8443",'${openshift-login-api-token}') {
                                 openshift.withProject("aminafarah") {
                                     sh "echo $PATH"
                                     sh "ls -l ${ocDir}"
@@ -29,6 +30,7 @@ pipeline {
                                     
                                     
                                 }
+                            }
                             }
                         }
                   }
