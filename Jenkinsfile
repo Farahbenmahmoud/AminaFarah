@@ -5,14 +5,21 @@ pipeline {
          maven '3.5.0'
          
     }
+      parameters {
+
+    credentials credentialType: 'com.openshift.jenkins.plugins.OpenShiftTokenCredentials', name: 'openshift-login-api-token', defaultValue: '', description: '', required: true
+
+  }
     stages{ 
     
         stage("build project") {
               when {
                    expression {
-                        openshift.withCluster("https://okd.cloud.3s.local:8443","WI-8En0gJyNYfzy8cyyr0eXLg1RA3cbNpxzjD8Ct5Mg") {
-                        openshift.withProject("aminafarah") {
-                         return !openshift.selector('dc', 'mysql').exists()
+                        openshift.withCluster() {
+                       
+                        openshift.withProject() {
+                            openshift.withCredentials('${openshift-login-api-token}'){
+                         return echo "Successssss"
                   }
                 }
               }
