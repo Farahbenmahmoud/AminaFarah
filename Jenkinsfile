@@ -8,7 +8,7 @@ pipeline {
     stages{
 
         stage('working stage') {
-               try {
+               steps {
                        timeout(time: 10, unit: 'MINUTES') {
                         sh 'ls -la /run/secrets/kubernetes.io/serviceaccount/ca.crt'
                         sh 'ls -la /run/secrets/kubernetes.io/serviceaccount/namespace'
@@ -18,11 +18,9 @@ pipeline {
                         openshift.withCluster("https://${env.KUBERNETES_SERVICE_HOST}:${env.KUBERNETES_SERVICE_PORT_HTTPS}") {
                         echo "Hello from ${openshift.cluster()}'s default project: ${openshift.project()}"  // This works
                 }
-            }
-        } catch (err) {
-            println err
-        }
-    }
+            
+        } 
+    
         stage("build project") {
                when {
                    expression {
