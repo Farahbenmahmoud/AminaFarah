@@ -15,12 +15,12 @@ pipeline {
         stage("build project") {
               when {
                    expression {
-                        openshift.withCluster() {
+                        openshift.withCluster("https://okd.cloud.3s.local:8443",'${openshift-login-api-token}') {
                        
-                        openshift.withProject() {
-                            openshift.withCredentials('${openshift-login-api-token}'){
+                        openshift.withProject("aminafarah") {
+                        //    openshift.withCredentials('${openshift-login-api-token}'){
                          return  !openshift.selector("bc", "mysql").exists();
-                  }
+               //   }
                   }
                 }
               }
