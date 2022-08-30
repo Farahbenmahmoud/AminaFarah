@@ -7,16 +7,16 @@ pipeline {
     }
     stages{
 
-          stage('working stage') {
-        try {
-            timeout(time: 10, unit: 'MINUTES') {
-                sh 'ls -la /run/secrets/kubernetes.io/serviceaccount/ca.crt'
-                sh 'ls -la /run/secrets/kubernetes.io/serviceaccount/namespace'
-                sh 'ls -la /run/secrets/kubernetes.io/serviceaccount/token'
-                sh 'env | grep KUBERNETES_SERVICE_HOST'
-                println "env.VAR version set - ${env.KUBERNETES_SERVICE_HOST} as well as VAR ${KUBERNETES_SERVICE_HOST}" // These exists
-                openshift.withCluster("https://${env.KUBERNETES_SERVICE_HOST}:${env.KUBERNETES_SERVICE_PORT_HTTPS}") {
-                    echo "Hello from ${openshift.cluster()}'s default project: ${openshift.project()}"  // This works
+        stage('working stage') {
+               try {
+                       timeout(time: 10, unit: 'MINUTES') {
+                        sh 'ls -la /run/secrets/kubernetes.io/serviceaccount/ca.crt'
+                        sh 'ls -la /run/secrets/kubernetes.io/serviceaccount/namespace'
+                        sh 'ls -la /run/secrets/kubernetes.io/serviceaccount/token'
+                        sh 'env | grep KUBERNETES_SERVICE_HOST'
+                        println "env.VAR version set - ${env.KUBERNETES_SERVICE_HOST} as well as VAR ${KUBERNETES_SERVICE_HOST}" // These exists
+                        openshift.withCluster("https://${env.KUBERNETES_SERVICE_HOST}:${env.KUBERNETES_SERVICE_PORT_HTTPS}") {
+                        echo "Hello from ${openshift.cluster()}'s default project: ${openshift.project()}"  // This works
                 }
             }
         } catch (err) {
