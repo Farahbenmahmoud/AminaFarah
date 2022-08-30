@@ -11,7 +11,7 @@ pipeline {
                when {
                    expression {
                         openshift.withCluster() {
-                        openshift.withProject("aminafarah") {
+                        openshift.withProject(env.aminafarah) {
                          return !openshift.selector('dc', 'mysql').exists()
                   }
                 }
