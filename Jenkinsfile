@@ -1,9 +1,9 @@
+def ocDir = tool "oc3.11.0"
 pipeline {
     agent any
     tools {
          jdk 'jdk'
          maven '3.5.0'
-         ocDir  'oc3.11.0'
          
     }
       parameters {
