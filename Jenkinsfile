@@ -18,7 +18,7 @@ pipeline {
                         openshift.withCluster("https://${env.KUBERNETES_SERVICE_HOST}:${env.KUBERNETES_SERVICE_PORT_HTTPS}") {
                         echo "Hello from ${openshift.cluster()}'s default project: ${openshift.project()}"  // This works
                 }
-            
+                       } 
         } 
     
         stage("build project") {
