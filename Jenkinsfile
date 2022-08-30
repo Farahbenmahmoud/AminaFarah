@@ -17,8 +17,8 @@ pipeline {
                         echo "${ocDir}"
 
                         withEnv(["PATH=${ocDir}:$PATH"]) {
-                            openshift.withCluster("https://api.pro-eu-west-1.openshift.com:8443", credentials("1add31cc-ffb8-4a5e-a2c9-8b66d7a583ce")) {
-                                openshift.withProject("foobar") {
+                            openshift.withCluster("https://okd.cloud.3s.local:8443", credentials("WI-8En0gJyNYfzy8cyyr0eXLg1RA3cbNpxzjD8Ct5Mg")) {
+                                openshift.withProject("aminafarah") {
                                     sh "echo $PATH"
                                     sh "ls -l ${ocDir}"
                                     sh "oc version"
@@ -26,6 +26,11 @@ pipeline {
 
                                     echo "${openshift.raw("version").out}"
                                     echo "In project: ${openshift.project()}"
+                                    
+                                    
+                                }
+                            }
+                        }
             /*
               when {
                    expression {
@@ -52,7 +57,6 @@ pipeline {
                 //sh "mvn test"
                 sh "mvn clean install"
             }*/
-        }
         /* stage("deploy"){
             steps{
               script {
