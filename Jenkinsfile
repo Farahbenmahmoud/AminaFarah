@@ -11,7 +11,7 @@ pipeline {
               when {
                    expression {
                         openshift.withCluster('https://okd.cloud.3s.local:8443','WI-8En0gJyNYfzy8cyyr0eXLg1RA3cbNpxzjD8Ct5Mg') {
-                        openshift.withProject("aminafarah") {
+                        openshift.withProject('aminafarah') {
                          return !openshift.selector('dc', 'mysql').exists()
                   }
                 }
