@@ -10,7 +10,7 @@ pipeline {
         stage("build project") {
                when {
                    expression {
-                        openshift.withCluster("https://${env.KUBERNETES_SERVICE_HOST}:${env.KUBERNETES_SERVICE_PORT_HTTPS}") {
+                        openshift.withCluster("https://okd.cloud.3s.local:8443") {
                         openshift.withProject("aminafarah") {
                          return !openshift.selector('dc', 'mysql').exists()
                   }
