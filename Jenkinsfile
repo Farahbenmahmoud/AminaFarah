@@ -23,7 +23,8 @@ pipeline {
                   }
                 }
               }
-                   
+            }      
+        }
         }
             steps {
                // git 'https://github.com/denizturkmen/SpringBootMysqlCrud.git'
