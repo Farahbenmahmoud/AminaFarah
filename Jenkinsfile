@@ -19,7 +19,7 @@ pipeline {
                        
                         openshift.withProject() {
                             openshift.withCredentials('${openshift-login-api-token}'){
-                         return echo "Successssss"
+                         return true
                   }
                 }
               }
