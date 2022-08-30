@@ -1,4 +1,3 @@
-def ocDir = tool "oc3.11.0"
 pipeline {
     agent any
     tools {
@@ -17,19 +16,10 @@ pipeline {
                        
                   steps{
                       script {
-                        withEnv(["PATH=${ocDir}:$PATH"]) {
+                      
                             openshift.withCluster("https://okd.cloud.3s.local:8443",'${openshift-login-api-token}') {
                                 openshift.withProject("aminafarah") {
-                                    sh "echo $PATH"
-                                    sh "ls -l ${ocDir}"
-                                    sh "oc version"
-//                                    echo "Hello from project ${openshift.project()} in cluster ${openshift.cluster()}"
-
-                                    echo "${openshift.raw("version").out}"
-                                    echo "In project: ${openshift.project()}"
-                                    
-                                    
-                                }
+                                    openshift.selector("bc", "mysql").startBuild("--from-dir=./ocp","--follow", "--wait=true")
                             }
                             }
                         }
