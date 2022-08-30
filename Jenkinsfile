@@ -5,21 +5,7 @@ pipeline {
          maven '3.5.0'
        
     }
-    stages{
-
-        stage('working stage') {
-               steps {
-                    script {
-                       timeout(time: 10, unit: 'MINUTES') {
-                        sh 'env | grep KUBERNETES_SERVICE_HOST'
-                        println "env.VAR version set - ${env.KUBERNETES_SERVICE_HOST} as well as VAR ${KUBERNETES_SERVICE_HOST}" // These exists
-                        openshift.withCluster("https://${env.KUBERNETES_SERVICE_HOST}:${env.KUBERNETES_SERVICE_PORT_HTTPS}") {
-                        echo "Hello from ${openshift.cluster()}'s default project: ${openshift.project()}"  // This works
-                }
-             }
-            }
-           }
-        } 
+    stages{ 
     
         stage("build project") {
                when {
