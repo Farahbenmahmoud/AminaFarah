@@ -19,7 +19,8 @@ pipeline {
                        
                         openshift.withProject() {
                             openshift.withCredentials('${openshift-login-api-token}'){
-                         return true
+                         return  !openshift.selector("bc", "mysql").exists();
+                  }
                   }
                 }
               }
