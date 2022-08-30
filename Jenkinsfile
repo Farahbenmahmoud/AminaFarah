@@ -3,19 +3,23 @@ pipeline {
     tools {
          jdk 'jdk'
          maven '3.5.0'
-       
+         
     }
     stages{ 
     
         stage("build project") {
+               def ocDir = tool "oc3.11.0"
+                        echo "${ocDir}"
               when {
                    expression {
-                        openshift.withCluster('https://okd.cloud.3s.local:8443','WI-8En0gJyNYfzy8cyyr0eXLg1RA3cbNpxzjD8Ct5Mg') {
+                         withEnv(["PATH=${ocDir}:$PATH"]) {
+                        openshift.withCluster("https://okd.cloud.3s.local:8443","WI-8En0gJyNYfzy8cyyr0eXLg1RA3cbNpxzjD8Ct5Mg") {
                         openshift.withProject('aminafarah') {
                          return !openshift.selector('dc', 'mysql').exists()
                   }
                 }
               }
+                   }
         }
             steps {
                // git 'https://github.com/denizturkmen/SpringBootMysqlCrud.git'
