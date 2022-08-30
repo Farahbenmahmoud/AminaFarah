@@ -10,13 +10,13 @@ pipeline {
         stage("build project") {
                when {
                    expression {
-                        openshift.withCluster("https://okd.cloud.3s.local:8443") {
+                       // openshift.withCluster("https://okd.cloud.3s.local:8443") {
                         openshift.withProject("aminafarah") {
                          return !openshift.selector('dc', 'mysql').exists()
                   }
                 }
               }
-            }
+            
             steps {
                // git 'https://github.com/denizturkmen/SpringBootMysqlCrud.git'
                 echo "Java VERSION"
