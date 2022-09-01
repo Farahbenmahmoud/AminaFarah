@@ -20,7 +20,8 @@ pipeline {
                             openshift.withCluster() {
                                 openshift.withProject() {
                                     openshift.withCredentials('${openshift-login-api-token}') {
-                                    openshift.selector("bc", "mysql").startBuild("--from-dir=./ocp","--follow", "--wait=true")
+                                    //openshift.selector("bc", "mysql").startBuild("--from-dir=./ocp","--follow", "--wait=true")
+                                        echo "${openshift.raw("whoami")}"
                             }
                                 }
                             }
