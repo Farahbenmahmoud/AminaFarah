@@ -17,10 +17,12 @@ pipeline {
                   steps{
                       script {
                       
-                            openshift.withCluster("https://okd.cloud.3s.local:8443",'${openshift-login-api-token}') {
+                            openshift.withCluster() {
                                 openshift.withProject("aminafarah") {
+                                    openshift.withCredentials('${openshift-login-api-token}') {
                                     openshift.selector("bc", "mysql").startBuild("--from-dir=./ocp","--follow", "--wait=true")
                             }
+                                }
                             }
                         }
                   }
