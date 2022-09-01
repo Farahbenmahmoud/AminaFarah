@@ -5,11 +5,7 @@ pipeline {
          maven '3.5.0'
          
     }
-      parameters {
-
-    credentials credentialType: 'com.openshift.jenkins.plugins.OpenShiftTokenCredentials', name: 'openshift-login-api-token', defaultValue: '', description: '', required: true
-
-  }
+  
     stages{ 
     
         stage("build project") {
@@ -19,7 +15,7 @@ pipeline {
                       
                             openshift.withCluster() {
                                 openshift.withProject() {
-                                    openshift.withCredentials('${openshift-login-api-token}') {
+                                    openshift.withCredentials('BooACIoy6gnv6Ig1esWqIwIWdAyYMOE91WNCwkuHbA4') {
                                     //openshift.selector("bc", "mysql").startBuild("--from-dir=./ocp","--follow", "--wait=true")
                                         echo "${openshift.raw("whoami")}"
                             }
