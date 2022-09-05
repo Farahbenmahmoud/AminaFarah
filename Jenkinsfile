@@ -20,7 +20,8 @@ pipeline {
                                   def deployment = openshift.selector("dc", "s-b-af") 
                                        openshift.selector("dc", "s-b-af").related('pods').untilEach(1) { 
                                       return (it.object().status.phase == "Running") 
-                                 }                                   
+                                 } 
+                                     openshift.selector("bc", "s-b-af").startBuild("--from-file=target/simple-servlet-0.0.1-SNAPSHOT.war", "--follow") }
                             }
               
                                 
