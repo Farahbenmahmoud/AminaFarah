@@ -17,11 +17,21 @@ pipeline {
                             openshift.withCluster('aminafarah') {
                                 openshift.withProject('aminafarah') {
                                   
-                                  def deployment = openshift.selector("dc", "s-b-af") 
-                                       openshift.selector("dc", "s-b-af").related('pods').untilEach(1) { 
+                                  
+                                       openshift.selector("dc", "mysql-3-92bn7").related('pods').untilEach(1) { 
                                       return (it.object().status.phase == "Running") 
+                                               echo "Java VERSION"
+                sh 'java -version'
+                echo "Maven VERSION"
+                sh 'mvn -version'
+                echo 'building project...'
+                sh "mvn compile"
+                //sh "mvn package"
+                //sh "mvn test"
+                sh "mvn clean install"
+                                           
                                  } 
-                                     openshift.selector("bc", "s-b-af").startBuild("--from-file=target/app.jar", "--follow") 
+                                   
                             }
               
                                 
