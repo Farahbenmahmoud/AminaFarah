@@ -9,14 +9,14 @@ pipeline {
     stages{ 
     
         stage("build project") {
-                       
-                  steps{
-                      script {
+         
+               steps{
+                   script {
                       
                             openshift.withCluster('insecure://okd.cloud.3s.local:8443','BooACIoy6gnv6Ig1esWqIwIWdAyYMOE91WNCwkuHbA4') {
                                 openshift.withProject('Aminafarah') {
                                     //openshift.withCredentials() {
-                                   // openshift.selector("bc", "mysql").startBuild("--from-dir=./ocp","--follow", "--wait=true")
+                                  openshift.selector("bc", "mysql").startBuild("--from-dir=./ocp","--follow", "--wait=true")
                                         //echo "${openshift.raw("whoami")}"
                             }
                                  echo "Java VERSION"
