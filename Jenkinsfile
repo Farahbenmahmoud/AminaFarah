@@ -6,7 +6,7 @@ pipeline {
     }
          parameters {
 
-    credentials credentialType: 'com.openshift.jenkins.plugins.OpenShiftTokenCredentials', name: 'cred', defaultValue: '', description: '', required: true
+    credentials credentialType: 'com.openshift.jenkins.plugins.OpenShiftCredentials', name: 'cred', defaultValue: '', description: '', required: true
 
   }
     
