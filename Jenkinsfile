@@ -3,12 +3,13 @@ pipeline {
     tools {
          jdk 'jdk'
          maven '3.5.0'
+    }
          parameters {
 
     credentials credentialType: 'com.openshift.jenkins.plugins.OpenShiftTokenCredentials', name: 'cred', defaultValue: '', description: '', required: true
 
   }
-    }
+    
   
     stages{ 
     
