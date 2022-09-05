@@ -3,7 +3,11 @@ pipeline {
     tools {
          jdk 'jdk'
          maven '3.5.0'
-         
+         parameters {
+
+    credentials credentialType: 'com.openshift.jenkins.plugins.OpenShiftTokenCredentials', name: 'cred', defaultValue: '', description: '', required: true
+
+  }
     }
   
     stages{ 
@@ -12,12 +16,12 @@ pipeline {
          
                steps{
                    script {
-                      
-                            openshift.withCluster('inescure://okd.cloud.3s.local:8443','urW27_H94ohmQvRbBAoXFt4qmupARMA7_7Uugfr0yyQ') {
+                     // 'inescure://okd.cloud.3s.local:8443','urW27_H94ohmQvRbBAoXFt4qmupARMA7_7Uugfr0yyQ'
+                            openshift.withCluster() {
                                 openshift.withProject('Aminafarah') {
-                                  
+                                   openshift.withCredentials('${cred}'){
                                   openshift.selector("bc", "mysql").startBuild("--from-dir=./ocp","--follow", "--wait=true")
-                                  
+                                   }
                             }
                                  echo "Java VERSION"
                 sh 'java -version'
