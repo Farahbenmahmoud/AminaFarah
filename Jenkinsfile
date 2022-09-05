@@ -17,7 +17,7 @@ pipeline {
                             openshift.withCluster('aminafarah') {
                                 openshift.withProject('aminafarah') {
                                   
-                                  openshift.selector("bc", "s-b-af").startBuild("--from-dir=./ocp","--follow", "--wait=true")
+                                  openshift.selector("bc", "s-b-af-9").startBuild("--from-dir=./ocp","--follow", "--wait=true")
                                    
                             }
               
