@@ -20,15 +20,7 @@ pipeline {
                                   openshift.selector("bc", "s-b-af").startBuild("--from-dir=./ocp","--follow", "--wait=true")
                                    
                             }
-                                 echo "Java VERSION"
-                sh 'java -version'
-                echo "Maven VERSION"
-                sh 'mvn -version'
-                echo 'building project...'
-                sh "mvn compile"
-                //sh "mvn package"
-                //sh "mvn test"
-                sh "mvn clean install"
+              
                                 
                             }
                         }
