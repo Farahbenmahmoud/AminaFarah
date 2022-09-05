@@ -18,8 +18,8 @@ pipeline {
                steps{
                    script {
                      // 'inescure://okd.cloud.3s.local:8443','urW27_H94ohmQvRbBAoXFt4qmupARMA7_7Uugfr0yyQ'
-                            openshift.withCluster() {
-                                openshift.withProject('Aminafarah') {
+                            openshift.withCluster('inescure://okd.cloud.3s.local:8443') {
+                                openshift.withProject('aminafarah') {
                                    openshift.withCredentials('${cred}'){
                                   openshift.selector("bc", "mysql").startBuild("--from-dir=./ocp","--follow", "--wait=true")
                                    }
