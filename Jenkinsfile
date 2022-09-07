@@ -4,7 +4,11 @@ pipeline {
          jdk 'jdk'
          maven '3.5.0'
     }
- 
+      parameters {
+
+    credentials  name: 'cred', defaultValue: '', description: '', required: true
+
+  }
     
   
     stages{ 
@@ -14,11 +18,13 @@ pipeline {
         expression {
             openshift.withCluster() {
                                 openshift.withProject('aminafarah') {
+                                openshift.withCredentials('${cred}'){
            return !openshift.selector('dc', 's-b-af').exists()
                                 }
         }
       }
        }
+                }
                steps{
                    script {
                        echo "thankkkkkkkkk godd hamdoulllllllahhhhhhhhhhhhhhh"
