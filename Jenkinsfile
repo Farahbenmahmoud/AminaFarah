@@ -3,28 +3,21 @@ pipeline {
     tools {
          jdk 'jdk'
          maven '3.5.0'
-    }
-      parameters {
-
-    credentials  name: 'aminafarah cred', defaultValue: '', description: '', required: true
-
-  }
-    
+    }  
   
     stages{ 
     
         stage("build project") {
                 when {
         expression {
-            openshift.withCluster('aminafarah cred') {
+            openshift.withCluster('aminafarah') {
                                 openshift.withProject('aminafarah') {
-                                openshift.withCredentials('${cred}'){
            return !openshift.selector('dc', 's-b-af').exists()
                                 }
         }
       }
        }
-                }
+                
                steps{
                    script {
                        echo "thankkkkkkkkk godd hamdoulllllllahhhhhhhhhhhhhhh"
