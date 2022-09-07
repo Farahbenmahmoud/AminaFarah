@@ -8,12 +8,19 @@ pipeline {
     stages{ 
     
         stage("build project") {
-                steps {
-                script {
-                openshift.withCluster('cluster') {
+               
+                      when {
+              expression {
+                  openshift.withCluster('cluster') {
                                 openshift.withProject('aminafarah') {
-                                   //  openshift.selector("bc", "s-b-af").startBuild("--from-file=target/app.jar", "--wait")
-                                  openshift.selector("bc", "mysql").related('Deployments')
+                    return !openshift.selector('dc', 'mysql').exists()
+                  }
+                }
+              }
+            }
+            
+            steps {
+                script {
                      echo "Java VERSION"
                 sh 'java -version'
                 echo "Maven VERSION"
@@ -26,8 +33,8 @@ pipeline {
          
              }
                 }
-                }
-                }
+                
+                
         }
     }
 }
