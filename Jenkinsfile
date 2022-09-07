@@ -10,8 +10,8 @@ pipeline {
         stage("build project") {
                 when {
         expression {
-            openshift.withCluster('aminafarah cred') {
-                                openshift.withProject() {
+            openshift.withCluster() {
+                                openshift.withProject('aminafarah') {
            return !openshift.selector('dc', 's-b-af').exists()
                                 }
         }
