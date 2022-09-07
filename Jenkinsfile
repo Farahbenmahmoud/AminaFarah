@@ -14,14 +14,15 @@ pipeline {
         expression {
             openshift.withCluster('aminafarah') {
                                 openshift.withProject('aminafarah') {
-           return !openshift.selector('dc', 'mysql').exists()
+           return !openshift.selector('dc', 's-b-af').exists()
                                 }
         }
       }
        }
                steps{
                    script {
-                     // 'inescure://okd.cloud.3s.local:8443','urW27_H94ohmQvRbBAoXFt4qmupARMA7_7Uugfr0yyQ'
+                       echo "thankkkkkkkkk godd hamdoulllllllahhhhhhhhhhhhhhh"
+                /*     // 'inescure://okd.cloud.3s.local:8443','urW27_H94ohmQvRbBAoXFt4qmupARMA7_7Uugfr0yyQ'
                 sh 'java -version'
                 echo "Maven VERSION"
                 sh 'mvn -version'
@@ -29,7 +30,7 @@ pipeline {
                 sh "mvn compile"
                 //sh "mvn package"
                 //sh "mvn test"
-                sh "mvn clean install"
+                sh "mvn clean install"*/
                                            
                                  } 
                                    
