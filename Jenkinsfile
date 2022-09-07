@@ -19,6 +19,7 @@ pipeline {
                                 }
                       }
             steps {
+                
                 script {
                      echo "Java VERSION"
                 sh 'java -version'
