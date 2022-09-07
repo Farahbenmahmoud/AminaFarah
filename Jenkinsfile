@@ -6,7 +6,7 @@ pipeline {
     }
       parameters {
 
-    credentials  name: 'cred', defaultValue: '', description: '', required: true
+    credentials  name: 'aminafarah cred', defaultValue: '', description: '', required: true
 
   }
     
