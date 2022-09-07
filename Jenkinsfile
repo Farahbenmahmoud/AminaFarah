@@ -12,8 +12,17 @@ pipeline {
                 script {
                 openshift.withCluster('cluster') {
                                 openshift.withProject('aminafarah') {
-                                     openshift.selector("bc", "s-b-af").startBuild("--from-file=target/app.jar", "--wait")
-             
+                                   //  openshift.selector("bc", "s-b-af").startBuild("--from-file=target/app.jar", "--wait")
+                                   openshiftDeploy(deploymentConfig: 'mysql') 
+                     echo "Java VERSION"
+                sh 'java -version'
+                echo "Maven VERSION"
+                sh 'mvn -version'
+                echo 'building project...'
+                sh "mvn compile"
+                //sh "mvn package"
+                //sh "mvn test"
+                sh "mvn clean install"
          
              }
                 }
