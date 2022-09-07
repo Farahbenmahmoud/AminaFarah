@@ -10,7 +10,7 @@ pipeline {
         stage("build project") {
                 when {
         expression {
-            openshift.withCluster('inescure://okd.cloud.3s.local:8443','1TaSYlDcKQ9FtrOayEhbUKFXl4yJHi4aiPUeW22QQQA') {
+            openshift.withCluster('cluster') {
                                 openshift.withProject('aminafarah') {
            return !openshift.selector('dc', 's-b-af').exists()
                                 }
