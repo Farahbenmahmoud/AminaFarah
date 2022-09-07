@@ -12,7 +12,7 @@ pipeline {
         stage("build project") {
                 when {
         expression {
-            openshift.withCluster('aminafarah') {
+            openshift.withCluster('aminafarah cred') {
                                 openshift.withProject('aminafarah') {
            return !openshift.selector('dc', 's-b-af').exists()
                                 }
