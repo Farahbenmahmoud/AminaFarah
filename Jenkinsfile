@@ -11,7 +11,7 @@ pipeline {
                 when {
         expression {
             openshift.withCluster('aminafarah cred') {
-                                openshift.withProject('aminafarah') {
+                                openshift.withProject() {
            return !openshift.selector('dc', 's-b-af').exists()
                                 }
         }
